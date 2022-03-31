@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+    <!-- Meta -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <!-- include CSS stylesheets -->
+    <!-- <link rel="stylesheet" href="../css/underground.css" type="text/css" /> -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- include JQuery library  -->
+    <script type="text/javascript" src="../jQuery/jquery.min.js"></script>
+    <!-- Users script: A very simple usage of JQuery library -->
+    <script type="text/javascript" src="../jQuery/show.js"></script>
+    <!-- Prism syntax highlighter -->
+    <link href="prism.css" rel="stylesheet">
+    <title>COMP2011 Lab 7: Quarantine System (Seperate Compilation)</title>
+</head>
+<style>
+    #sidebar {
+        width: 21%;
+        border-right: 3px solid #dee2e6 !important;
+    }
+</style>
+
+<body>
+    <script src="prism.js"></script>
+    <div class="d-flex" id="body_wrap">
+        <!-- Sidebar -->
+        <div class="show" id="sidebar">
+            <div class="bg-light">
+                <div class="sidebar-heading" style="padding: 0.875rem 1.25rem;">Lab 7</div>
+                <div class="list-group list-group-flush">
+                    <a href="#Intro" class="list-group-item list-group-item-action bg-light">Introduction</a>
+                    <a href="#Game" class="list-group-item list-group-item-action bg-light">Lab Description</a>
+                    <a href="#DS" class="list-group-item list-group-item-action bg-light">Data Structures</a>
+                    <a href="#Task" class="list-group-item list-group-item-action bg-light">Tasks</a>
+                    <!--<a href="#Download" class="list-group-item list-group-item-action bg-light">Downloads</a>-->
+                    <a href="#Output" class="list-group-item list-group-item-action bg-light">Sample Output</a>
+                    <!--<a href="#Hint" class="list-group-item list-group-item-action bg-light">Hint</a>-->
+                    <a href="#Grade" class="list-group-item list-group-item-action bg-light">Grading</a>
+                    <span class="list-group-item list-group-item-action bg-light">Prepared by: <a
+                     href="mailto:wthiesman@connect.ust.hk">Wilson Thiesman</a></span>
+                </div>
+            </div>
+        </div>
+        <!-- /#sidebar -->
+        <!-- Page Content -->
+        <div id="main">
+            <!-- Navbar Dropdown -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+                <div class="col-sm-9">
+                    <button class="btn" type="button" data-toggle="collapse" data-target="#sidebar" aria-expanded="false">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/">Course Webpage</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://course.cse.ust.hk/comp2011/forum.html">Online Forum</a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- Main content -->
+
+            <div class="col-sm-12 col-lg-12 container">
+                <h1>COMP2011 Lab 7</h1>
+
+            <figure class="figure mx-auto d-block">
+                <img src="./resource/lab7_quarantine.png" class="figure-img mx-auto d-block" width="600" alt="Quarantine System">
+            </figure>
+        </div>
+        <div class="container-fluid border-bottom my-5" id='Intro'>
+
+            <h2>Introduction</h2>
+            <p>
+                In this lab, you will learn about seperate compilation through a simple simulation with the theme: Quarantine. By using seperate compilation, you can write your codes on
+                multiple files in order to make it tidier and maintainable in the long run. The number of covid in Hong Kong has been rising significantly for these
+                past few weeks. Let's say you want to help tackling the Covid issue by making a new quarantine hotel. In order to make your quarantine system working, you 
+                need to make the program for assigning patient to their room.<br> 
+                
+                <br>
+
+        </div>
+        <div class="container-fluid border-bottom my-5" id='Game'>
+
+            <h2>Lab Description</h2>
+                <p>
+                Since your hotel is still new, it is now in a trial period for 10 days, in other words, you will receive patient for maximum of 10 days and
+                each days have 30 patients. For the details of your quarantine hotel, it has 50 rooms and 2 type of rooms: <b>Single Quarantine</b> and <b>Couple Quarantine</b>
+                </p>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm">
+                            <img src="./resource/single_quarantine.png" class="figure-img mx-auto d-block" alt="Single Quarantine" style="width:50%; text-align: center;">
+                        </div>
+                        <div class="col-sm">
+                            <img src="./resource/double_quarantine.png" class="figure-img mx-auto d-block" alt="Couple Quarantine" style="width:50%; text-align: center;">
+                        </div>
+                    </div>
+                
+                    <div class="row">
+                        <div class="col-sm">
+                            <p style="text-align:center;"><strong>Single Quarantine</strong><br>Duration: 5 days<br>Room number: any number</p>
+                        </div>
+                        <div class="col-sm">
+                            <p style="text-align:center;"><strong>Couple Quarantine</strong><br>Duration: 4 days<br>Room number: prime+index number</p>
+                        </div>
+                    </div>
+                </div>
+                <p>To illustrate what a prime+index number is, you may want to look at this example below.</p><br>
+                <div class="container">
+                    <div class="row">
+                      <div class="col-sm">
+                        <img src="./resource/prime+index.png" class="figure-img mx-auto d-block" alt="Prime + Index" style="width:50%; text-align: center;">
+                        <br>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <p>The first prime number is 2, which means the index is 1. <br>Thus, prime+index = 3</p>
+                        </div>
+                        <div class="col-sm">
+                            <p>The second prime number is 3, which means the index is 2. <br>Thus, prime+index = 5</p>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <h5>For the <strong>Game Mechanism</strong>, please refer to the picture below</h5>
+                
+                <figure class="figure mx-auto d-block">
+                    <img src="./resource/mechanism.png" class="figure-img mx-auto d-block" width="300" alt="Game Mechanism">
+                </figure>
+
+                <p>We have prepared you three .txt files for the patient input. You may want to use these files as a different 'map' </p>
+                <div class="container">
+                  <div class="row">
+                      <div class="col-sm">
+                        <img src="./resource/file_input.png" class="figure-img mx-auto d-block" alt="File input" style="width:70%; text-align: center;">
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm">
+                      <ul>
+                        <li>Each file is a matrix of 10 x 30 where the row represent the day and the column represent the patient.</li>
+                        <li>Each number represent a different kind of disease. You can check the disease in Diseases enum in the <a href="#DS"> Data Structures</a> section</li>
+                        <li>Non-consecutive number represents <i>Single</i> while 2 consecutive numbers represent <i>Couple</i>.</li>
+                        <li>You don't need to fully understand how to fetch the data patients and classify them into Single type quarantine and Couple type quarantine as it has been done by a helper function</li>
+                      </ul>
+                    </div>
+                </div>
+              </div>
+                <br>
+        </div>
+
+        <div class="container-fluid border-bottom my-5" id="DS">
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <h2>Data Structure</h2>
+
+              <p>
+                The following data data structures are defined in <code class=" language-text">lab7.h</code>.
+              </p>
+
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item">
+                  <pre class=" language-cpp" tabindex="0"><code class=" language-cpp"><span class="token keyword">enum</span> <span class="token class-name">Diseases</span> <span class="token punctuation">{</span>
+    <span class="token keyword">NO_DISEASE</span><span class="token punctuation">;</span>
+    <span class="token keyword">COVID</span><span class="token punctuation">;</span>
+    <span class="token keyword">DIABETES</span><span class="token punctuation">;</span>
+    <span class="token keyword">HEART_FAILURE</span><span class="token punctuation">;</span>
+    <span class="token keyword">KIDNEY_FAILURE</span><span class="token punctuation">;</span>
+    <span class="token keyword">CHICKEN_POX</span><span class="token punctuation">;</span>
+    <span class="token keyword">NULL_DISEASE</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+                </li>
+                <li class="list-group-item">
+                  <pre class=" language-cpp" tabindex="0"><code class=" language-cpp"><span class="token keyword">struct</span> <span class="token class-name">Patients</span> <span class="token punctuation">{</span>
+    <span class="token keyword">char</span> type<span class="token punctuation">;</span>
+
+    Diseases disease<span class="token punctuation">;</span>
+
+    <span class="token keyword">bool</span> covid_infected<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+                  <ul>
+                    <li>
+                      <code class=" language-text">type</code> stores the type of the patient. 'S' for single and 'C' for couple.
+                    </li>
+
+                    <li>
+                      <code class=" language-text">disease</code> stores type of disease that the patient have
+                    </li>
+
+                    <li>
+                      <code class=" language-text">covid_infected</code> stores whether the patient got infected by covid or not
+                    </li>
+                  </ul>
+                </li>
+                <li class="list-group-item">
+                  <pre class=" language-cpp" tabindex="0"><code class=" language-cpp"><span class="token keyword">struct</span> <span class="token class-name">Room</span> <span class="token punctuation">{</span>
+    <span class="token keyword">bool</span> occupied<span class="token punctuation">;</span>
+
+    <span class="token keyword">int</span> duration_left<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span></code></pre>
+                <ul>
+                  <li>
+                    <code class=" language-text">bool</code> tells whether the room is occupied or not.
+                  </li>
+
+                  <li>
+                    <code class=" language-text">duration_left</code> stores the leftover number of days this room is occupied
+                  </li>
+                </ul>
+                </li>
+              
+                <li class="list-group-item">
+                  <pre class=" language-cpp" tabindex="0"><code class=" language-cpp"><span class="token keyword">Patients</span> <span class="token class-name">active_array<span class="token punctuation">[]</span></code></pre>
+                
+                <ul>
+                  <li>
+                    a <b>Circular Array</b> that contains all of the patients that are in the waiting list waiting to be assigned. We call them the active patient.
+                  </li>
+                </ul>
+                </li>
+
+            </ul>
+        </div>
+
+        <div class="container-fluid border-bottom my-5" id="Task">
+           <h2>Tasks</h2>
+
+            <p> We have implemented a code skeleton for this game (<a href="lab7_skeleton.zip">lab7_skeleton.zip</a>), in which some parts 
+                are left blank with necessary comments. All of the tasks can be seen in <code>utils.cpp</code> and <code>lab7.h</code>.
+                You need to start from the skeleton code and fill in the blanks marked with <code>TODO</code>. </p>
+            
+            <p>You are <b>NOT ALLOWED</b> to move any function definition to the other files (but you can declare functions in different files).</p>
+            <br>
+            <p>There are 4 Tasks in total:</p>
+            <h4>Task 1 - Declaring external function/variable</h4>
+            <p class="card-text">
+              <b>Description</b> - Declare the external function in <code>lab7.h</code> and declare the external variable in <code>utils.cpp</code>
+            </p>
+            <br>
+            <h4>Task 2 - Implement the <code>registerCovidPatient()</code> function</h4>
+						<p class="card-text">
+							<b>Description</b> - Run through the sick_patient list and register each patient that got infected
+              by covid. In addition, count the number of covid-positive patient each day and
+              add it to num_covid_patients list where the index+1 represents the day
+              ex. index = 0 denotes the first day.
+						</p>
+            <pre class="language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">registerCovidPatient</span><span class="token punctuation">(</span><span class="token keyword">Patients</span> covid_list<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>MAX_COVID_INFECTED<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">Patients</span> sick_patient<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>NUM_PATIENTS<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+            <p class="card-text">
+              <b>Parameters</b>
+            </p>
+            <ul>
+              <li>
+                <code class=" language-cpp"><span class="token keyword">Patients</span> covid_list<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>MAX_COVID_INFECTED<span class="token punctuation">]</span></code> - <i>Output</i> - 2D Array (Row: Day, Column: Patient).
+              </li>
+              <li>
+                <code class=" language-cpp"><span class="token keyword">Patients</span> sick_patient<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>NUM_PATIENTS<span class="token punctuation">]</span></code> - <i>Input</i> - 2D Array with all patients with various diseases
+              </li>
+            </ul>
+            <p class="card-text">
+              <b>Return value</b> - None
+            </p>
+            <br>
+            <h4>Task 3 - Implement the <code>checkPrime()</code>, <code>roomEligibility()</code>, <code>checkRoomAvailability()</code> functions</h4>
+						<p class="card-text">
+							<b>Description</b> - Complete all 3 functions below to complete the room checking function. Write a 
+              simple code to check whether the room number is a prime in checkPrime() and implement
+              it into roomEligibility() to check whether the requested room fulfill the criteria.
+              Then, implement and roomEligibility() into checkRoomAvailability().
+						</p>
+            <pre class="language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">checkPrime</span><span class="token punctuation">(</span><span class="token keyword">int</span> num</code><span class="token punctuation">)</span></pre>
+            <p class="card-text">
+              <b>Parameters</b>
+            </p>
+            <ul>
+              <li>
+                <code class=" language-cpp"><span class="token keyword">int</span> num </code> - <i>Input</i> - check whether the number is a prime number.
+              </li>
+            </ul>
+            <p class="card-text">
+              <b>Return value</b> - return a prime number. If it's not a prime number, return 0
+            </p>
+            <br>
+            <pre class="language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> <span class="token function">roomEligibility</span><span class="token punctuation">(</span><span class="token keyword">int</span> num</code><span class="token punctuation">)</span></pre>
+            <p class="card-text">
+              <b>Parameters</b>
+            </p>
+            <ul>
+              <li>
+                <code class=" language-cpp"><span class="token keyword">int</span> num </code> - <i>Input</i> - check whether the number fulfill the prime+index rule.
+              </li>
+            </ul>
+            <p class="card-text">
+              <b>Return value</b> - return <code>true</code> if it fulfill the rules, else return <code>false</code>
+            </p>
+            <br>
+            <pre class="language-cpp"><code class="language-cpp"><span class="token keyword">bool</span> <span class="token function">checkRoomAvailability</span><span class="token punctuation">(</span><span class="token keyword">Room</span> rooms<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token keyword">char</span> type<span class="token punctuation">,</span><span class="token keyword">int</span> room_req</code><span class="token punctuation">)</span></pre>
+            <p class="card-text">
+              <b>Parameters</b>
+            </p>
+            <ul>
+              <li>
+                <code class=" language-cpp"><span class="token keyword">Room</span> rooms <span class="token punctuation">[</span><span class="token punctuation">]</code> - <i>Input</i> - list of all the rooms.
+              </li>
+              <li>
+                <code class=" language-cpp"><span class="token keyword">char</span> type </code> - <i>Input</i> - the type of the patient (Single / Couple).
+              </li>
+              <li>
+                <code class=" language-cpp"><span class="token keyword">int</span> room_req </code> - <i>Input</i> - the desired room.
+              </li>
+            </ul>
+            <p class="card-text">
+              <b>Return value</b> - return <code>true</code> if the room is available, else return <code>false</code>.
+            </p>
+            <br>
+            <p class="card-text">
+              <b>Notes</b>
+            </p>
+            <ul>
+              <li>
+                Make sure to modify the value of <code class=" language-cpp">occupied</code> and <code class=" language-cpp">duration_left</code> member / object 
+                inside the <code class=" language-cpp"><span class="token keyword">struct</span> Room</code> based on the corresponding duration and use the string 
+                constant that have been defined in lab7.h as the text output warning.
+              </li>
+            </ul>
+            <br>
+            <h4>Task 4 - Implement the <code>transferringPatient()</code> function</h4>
+						<p class="card-text">
+							<b>Description</b> - Fetch the patient from covid_list for <strong>TODAY</strong> to the active_array. Make sure to implement the circular
+              array concept and increase the value of fill_index everytime you add a patient into the active_array. Return the total number of patients that got transferred
+						</p>
+            <pre class="language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token function">transferringPatient</span><span class="token punctuation">(</span><span class="token keyword">Patients</span> covid_list<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>MAX_COVID_INFECTED<span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">Patients</span> active_array<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">, </span><span class="token keyword">int&</span> fill_index<span class="token punctuation">, </span><span class="token keyword">int</span> day_index<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+            <p class="card-text">
+              <b>Parameters</b>
+            </p>
+            <ul>
+              <li>
+                <code class=" language-cpp"><span class="token keyword">Patients</span> covid_list<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span>MAX_COVID_INFECTED<span class="token punctuation">]</span></code> - <i>Output</i> - 2D Array (Row: Day, Column: Patient).
+              </li>
+              <li>
+                <code class=" language-cpp"><span class="token keyword">Patients</span> active_array<span class="token punctuation">[</span><span class="token punctuation">]</span></code> - <i>Output</i> - A circular array that contains active patients (patients who are in the waiting list and can be assigned to a room).
+              </li>
+              <li>
+                <code class= "language-cpp"><span class="token keyword">int&</span> fill_index</code> - <i>Input</i> - the index of active_array that denote the starting position of appending the patient to the list.
+              </li>
+              <li>
+                <code class= "language-cpp"><span class="token keyword">int</span> day_index</code> - <i>Input</i> - the index of covid_list that denote the day (row) of the array.
+              </li>
+            </ul>
+            <p class="card-text">
+              <b>Return value</b> - the total number of patients that got transferred
+            </p>
+            <p class="card-text">
+              <b>Notes</b>
+            </p>
+            <p>To further understand the transferring mechanism, please refer to the animation below.</p>
+            <figure class="figure mx-auto d-block">
+              <img src="./resource/Lab7.gif" class="figure-img mx-auto d-block" width="800" alt="Transferring Mechanism">
+            </figure>
+            <br>
+            <p>Legends:</p>
+            <ol>
+                <li>The 1D array represents a circular array data structure.</li>
+                <li>The colored dots represent the patients where different color represents different day</li>
+                <li>The yellow arrow represents the <code class="language-cpp">fill_index</code> while the red arrow represents the <code class="language-cpp">patient_index</code> (the pointer to assign a patient) in <code>lab7.cpp</code></li>
+                <li>The <code class="language-cpp">day_index</code> is represented as the number of days in the 2D Array</li>
+                <li>The cross sign means that the patient has been assigned. Student <b>DOES NOT NEED</b> to remove/clear the element from the array as it will be overwritten due to circular array property</li>
+            </ol>
+            <p>
+              Here's what happend in the animation above:
+            </p>
+            <ul>
+              <li><b>Day 1</b>: Fetch 4 patients from covid_list (The 2D Array) to the active_array, then assign <b>2 patients</b> to a room</li>
+              <li><b>Day 2</b>: Fetch 5 patients from covid_list to the active_array, then assign <b>5 patients</b> to a room. Index 0 of active_array has been overwritten.</li>
+              <li><b>Day 3</b>: Fetch 3 patients from covid_list to the active_array. Index 1,2,3 of active_array have been overwritten.
+            </ul>
+            <br>
+            
+
+            <p>Please note that you need to show how you compile the multiple .cpp files during 
+              your demonstration to TAs. You can refer to 
+              <a href="https://course.cse.ust.hk/comp2011/labs/vscode/#terminal">this</a> to find how to use the terminal 
+              for custom compilation command in VS Code.</p>
+
+              <p> Another alternative is by using the following command to compile the program <strong> g++ *.cpp -o output.out</strong> 
+                  and this following command to run the program <strong> ./output.out </strong></p>
+
+        </div>
+        <div class="container-fluid border-bottom my-5" id="Output">
+            <h2>Sample Output</h2>
+            <p>The involved input sequences are</p>
+            <ol>
+              <li><a href="auto_input.txt">11713110222212021402131115131718023</a></li>
+            </ol>
+
+            <p>
+                <pre class="shadow p-3 mb-5 bg-white rounded">
+Please choose which month do you want to process:
+1. month_1.txt
+2. month_2.txt
+3. month_3.txt
+<font color="#FF0000">1</font>
+
+Retrieving all hospital visitor history...
+Registering all patient...
+Registering all covid patient...
+
+Total cases from the hospital
+====================
+Day 1. 5 covid cases
+Day 2. 9 covid cases
+Day 3. 3 covid cases
+Day 4. 8 covid cases
+Day 5. 5 covid cases
+Day 6. 4 covid cases
+Day 7. 3 covid cases
+Day 8. 6 covid cases
+Day 9. 6 covid cases
+Day 10. 6 covid cases
+TOTAL = 55 cases
+
+DAY 1 - Number of covid = 5
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">1</font>
+
+
+=================================== ROOMS ===================================
+1. 0    2. 0    3. 0    4. 0    5. 0    6. 0    7. 0    8. 0    9. 0    10. 0
+11. 0   12. 0   13. 0   14. 0   15. 0   16. 0   17. 0   18. 0   19. 0   20. 0
+21. 0   22. 0   23. 0   24. 0   25. 0   26. 0   27. 0   28. 0   29. 0   30. 0
+31. 0   32. 0   33. 0   34. 0   35. 0   36. 0   37. 0   38. 0   39. 0   40. 0
+41. 0   42. 0   43. 0   44. 0   45. 0   46. 0   47. 0   48. 0   49. 0   50. 0
+
+Patient's Type = C
+Input room number = <font color="#FF0000">7</font>
+
+Not eligible for this room number!
+
+UPDATE: Number of covid = 5
+Continue? (1. Yes/ 0. No) <font color="#FF0000">1</font>
+
+
+=================================== ROOMS ===================================
+1. 0    2. 0    3. 0    4. 0    5. 0    6. 0    7. 0    8. 0    9. 0    10. 0
+11. 0   12. 0   13. 0   14. 0   15. 0   16. 0   17. 0   18. 0   19. 0   20. 0
+21. 0   22. 0   23. 0   24. 0   25. 0   26. 0   27. 0   28. 0   29. 0   30. 0
+31. 0   32. 0   33. 0   34. 0   35. 0   36. 0   37. 0   38. 0   39. 0   40. 0
+41. 0   42. 0   43. 0   44. 0   45. 0   46. 0   47. 0   48. 0   49. 0   50. 0
+
+Patient's Type = C
+Input room number = <font color="#FF0000">3</font>
+
+The room has been successfully occupied.
+
+UPDATE: Number of covid = 3
+Continue? (1. Yes/ 0. No) <font color="#FF0000">1</font>
+
+
+=================================== ROOMS ===================================
+1. 0    2. 0    3. 4    4. 0    5. 0    6. 0    7. 0    8. 0    9. 0    10. 0
+11. 0   12. 0   13. 0   14. 0   15. 0   16. 0   17. 0   18. 0   19. 0   20. 0
+21. 0   22. 0   23. 0   24. 0   25. 0   26. 0   27. 0   28. 0   29. 0   30. 0
+31. 0   32. 0   33. 0   34. 0   35. 0   36. 0   37. 0   38. 0   39. 0   40. 0
+41. 0   42. 0   43. 0   44. 0   45. 0   46. 0   47. 0   48. 0   49. 0   50. 0
+
+Patient's Type = S
+Input room number = <font color="#FF0000">1</font>
+
+The room has been successfully occupied.
+
+UPDATE: Number of covid = 2
+Continue? (1. Yes/ 0. No) <font color="#FF0000">0</font>
+
+
+DAY 1 - Number of covid = 2
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">2</font>
+
+
+ACTIVE PATIENT LIST
+=====================================================================================================
+| S | S | S | C | C | C | C | S | S | S | S |  |  |  |  |  |  |  |  |  |  |  | 
+=====================================================================================================
+  0   1   2   3   4   5   6   7   8   9   10 
+
+DAY 2 - Number of covid = 11
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">2</font>
+
+
+ACTIVE PATIENT LIST
+=====================================================================================================
+| S | S | S | C | C | C | C | S | S | S | S | S | S | S |  |  |  |  |  |  |  |  | 
+=====================================================================================================
+  0   1   2   3   4   5   6   7   8   9   10  11  12  13 
+
+DAY 3 - Number of covid = 14
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">2</font>
+
+
+ACTIVE PATIENT LIST
+=====================================================================================================
+| S | S | S | C | C | C | C | S | S | S | S | S | S | S | C | C | S | S | C | C | C | C | 
+=====================================================================================================
+  0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21 
+
+DAY 4 - Number of covid = 22
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">2</font>
+
+There is not enough space for transferring the patient. Please assign some patient to the room first.
+
+Incoming patient = 5 people
+
+DAY 4 - Number of covid = 22
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">1</font>
+
+
+=================================== ROOMS ===================================
+1. 2    2. 0    3. 1    4. 0    5. 0    6. 0    7. 0    8. 0    9. 0    10. 0
+11. 0   12. 0   13. 0   14. 0   15. 0   16. 0   17. 0   18. 0   19. 0   20. 0
+21. 0   22. 0   23. 0   24. 0   25. 0   26. 0   27. 0   28. 0   29. 0   30. 0
+31. 0   32. 0   33. 0   34. 0   35. 0   36. 0   37. 0   38. 0   39. 0   40. 0
+41. 0   42. 0   43. 0   44. 0   45. 0   46. 0   47. 0   48. 0   49. 0   50. 0
+
+Patient's Type = S
+Input room number = <font color="#FF0000">2</font>
+
+The room has been successfully occupied.
+
+UPDATE: Number of covid = 21
+Continue? (1. Yes/ 0. No) <font color="#FF0000">0</font>
+
+
+DAY 4 - Number of covid = 21
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">2</font>
+
+There is not enough space for transferring the patient. Please assign some patient to the room first.
+
+Incoming patient = 5 people
+
+DAY 4 - Number of covid = 21
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">1</font>
+
+
+=================================== ROOMS ===================================
+1. 2    2. 5    3. 1    4. 0    5. 0    6. 0    7. 0    8. 0    9. 0    10. 0
+11. 0   12. 0   13. 0   14. 0   15. 0   16. 0   17. 0   18. 0   19. 0   20. 0
+21. 0   22. 0   23. 0   24. 0   25. 0   26. 0   27. 0   28. 0   29. 0   30. 0
+31. 0   32. 0   33. 0   34. 0   35. 0   36. 0   37. 0   38. 0   39. 0   40. 0
+41. 0   42. 0   43. 0   44. 0   45. 0   46. 0   47. 0   48. 0   49. 0   50. 0
+
+Patient's Type = S
+Input room number = <font color="#FF0000">4</font>
+
+The room has been successfully occupied.
+
+UPDATE: Number of covid = 20
+Continue? (1. Yes/ 0. No) <font color="#FF0000">0</font>
+
+
+DAY 4 - Number of covid = 20
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">2</font>
+
+
+ACTIVE PATIENT LIST
+=====================================================================================================
+| S | C | C | C | C | S | S | S | S | S | S | S | C | C | S | S | C | C | C | C | S | S | S | S | S | 
+=====================================================================================================
+  0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23  24 
+
+DAY 5 - Number of covid = 25
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">1</font>
+
+
+=================================== ROOMS ===================================
+1. 1    2. 4    3. 0    4. 4    5. 0    6. 0    7. 0    8. 0    9. 0    10. 0
+11. 0   12. 0   13. 0   14. 0   15. 0   16. 0   17. 0   18. 0   19. 0   20. 0
+21. 0   22. 0   23. 0   24. 0   25. 0   26. 0   27. 0   28. 0   29. 0   30. 0
+31. 0   32. 0   33. 0   34. 0   35. 0   36. 0   37. 0   38. 0   39. 0   40. 0
+41. 0   42. 0   43. 0   44. 0   45. 0   46. 0   47. 0   48. 0   49. 0   50. 0
+
+Patient's Type = S
+Input room number = <font color="#FF0000">3</font>
+
+The room has been successfully occupied.
+
+UPDATE: Number of covid = 24
+Continue? (1. Yes/ 0. No) <font color="#FF0000">1</font>
+
+
+=================================== ROOMS ===================================
+1. 1    2. 4    3. 5    4. 4    5. 0    6. 0    7. 0    8. 0    9. 0    10. 0
+11. 0   12. 0   13. 0   14. 0   15. 0   16. 0   17. 0   18. 0   19. 0   20. 0
+21. 0   22. 0   23. 0   24. 0   25. 0   26. 0   27. 0   28. 0   29. 0   30. 0
+31. 0   32. 0   33. 0   34. 0   35. 0   36. 0   37. 0   38. 0   39. 0   40. 0
+41. 0   42. 0   43. 0   44. 0   45. 0   46. 0   47. 0   48. 0   49. 0   50. 0
+
+Patient's Type = C
+Input room number = <font color="#FF0000">1</font>
+
+Not eligible for this room number!
+
+UPDATE: Number of covid = 24
+Continue? (1. Yes/ 0. No) <font color="#FF0000">1</font>
+
+
+=================================== ROOMS ===================================
+1. 1    2. 4    3. 5    4. 4    5. 0    6. 0    7. 0    8. 0    9. 0    10. 0
+11. 0   12. 0   13. 0   14. 0   15. 0   16. 0   17. 0   18. 0   19. 0   20. 0
+21. 0   22. 0   23. 0   24. 0   25. 0   26. 0   27. 0   28. 0   29. 0   30. 0
+31. 0   32. 0   33. 0   34. 0   35. 0   36. 0   37. 0   38. 0   39. 0   40. 0
+41. 0   42. 0   43. 0   44. 0   45. 0   46. 0   47. 0   48. 0   49. 0   50. 0
+
+Patient's Type = C
+Input room number = <font color="#FF0000">5</font>
+
+The room has been successfully occupied.
+
+UPDATE: Number of covid = 22
+Continue? (1. Yes/ 0. No) <font color="#FF0000">1</font>
+
+
+=================================== ROOMS ===================================
+1. 1    2. 4    3. 5    4. 4    5. 4    6. 0    7. 0    8. 0    9. 0    10. 0
+11. 0   12. 0   13. 0   14. 0   15. 0   16. 0   17. 0   18. 0   19. 0   20. 0
+21. 0   22. 0   23. 0   24. 0   25. 0   26. 0   27. 0   28. 0   29. 0   30. 0
+31. 0   32. 0   33. 0   34. 0   35. 0   36. 0   37. 0   38. 0   39. 0   40. 0
+41. 0   42. 0   43. 0   44. 0   45. 0   46. 0   47. 0   48. 0   49. 0   50. 0
+
+Patient's Type = C
+Input room number = <font color="#FF0000">3</font>
+
+The room is occupied!
+
+UPDATE: Number of covid = 22
+Continue? (1. Yes/ 0. No) <font color="#FF0000">1</font>
+
+
+=================================== ROOMS ===================================
+1. 1    2. 4    3. 5    4. 4    5. 4    6. 0    7. 0    8. 0    9. 0    10. 0
+11. 0   12. 0   13. 0   14. 0   15. 0   16. 0   17. 0   18. 0   19. 0   20. 0
+21. 0   22. 0   23. 0   24. 0   25. 0   26. 0   27. 0   28. 0   29. 0   30. 0
+31. 0   32. 0   33. 0   34. 0   35. 0   36. 0   37. 0   38. 0   39. 0   40. 0
+41. 0   42. 0   43. 0   44. 0   45. 0   46. 0   47. 0   48. 0   49. 0   50. 0
+
+Patient's Type = C
+Input room number = <font color="#FF0000">7</font>
+
+Not eligible for this room number!
+
+UPDATE: Number of covid = 22
+Continue? (1. Yes/ 0. No) <font color="#FF0000">1</font>
+
+
+=================================== ROOMS ===================================
+1. 1    2. 4    3. 5    4. 4    5. 4    6. 0    7. 0    8. 0    9. 0    10. 0
+11. 0   12. 0   13. 0   14. 0   15. 0   16. 0   17. 0   18. 0   19. 0   20. 0
+21. 0   22. 0   23. 0   24. 0   25. 0   26. 0   27. 0   28. 0   29. 0   30. 0
+31. 0   32. 0   33. 0   34. 0   35. 0   36. 0   37. 0   38. 0   39. 0   40. 0
+41. 0   42. 0   43. 0   44. 0   45. 0   46. 0   47. 0   48. 0   49. 0   50. 0
+
+Patient's Type = C
+Input room number = <font color="#FF0000">8</font>
+
+The room has been successfully occupied.
+
+UPDATE: Number of covid = 20
+Continue? (1. Yes/ 0. No) <font color="#FF0000">0</font>
+
+
+DAY 5 - Number of covid = 20
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">2</font>
+
+
+ACTIVE PATIENT LIST
+=====================================================================================================
+| S | S | S | S | S | S | S | C | C | S | S | C | C | C | C | S | S | S | S | S | C | C | S | S | 
+=====================================================================================================
+  0   1   2   3   4   5   6   7   8   9   10  11  12  13  14  15  16  17  18  19  20  21  22  23 
+
+DAY 6 - Number of covid = 24
+Please pick an action: 
+1. Assign patient to a room
+2. Continue to the next day
+3. Quit
+Your action = <font color="#FF0000">3</font>
+
+System shutting down...
+			</pre>
+            </p>
+
+        </div>
+        <!-- block 0 ends here -->
+        <!-- block 1 starts here -->
+        <!-- block 1 ends here -->
+        <!-- block 2 starts here -->
+        <div class="container-fluid border-bottom my-5" id="Grade">
+            <h2>Grading</h2>
+            <p> We have 3 marks for each lab:
+                <ul>
+                    <li>By attending a lab, the student gets 1 point for attendance (but only if it is clear that the student does put in some effort).</li>
+                    <li>By completing the lab exercise correctly and answering TAs' question (if there is a question) correctly, the student gets the remaining 2 more points.</li>
+                    <li>You are required to turn on the camera when you demonstrate your program to
+					the TA.</li>
+                </ul>
+            </p>
+        </div>
+        <div class="mx-auto d-flex justify-content-center"> The lab page is maintained by THIESMAN, Wilson (wthiesman@connect.ust.hk)
+        </div>
+    </div>
+    <!-- main ends here -->
+    </div>
+    <!-- Bootstrap JS import -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <!-- Menu Toggle Script (typescript) -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#body_wrap").toggleClass("toggled");
+        });
+    </script>
+</body>
+
+</html>
