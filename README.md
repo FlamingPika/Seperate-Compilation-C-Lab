@@ -43,19 +43,6 @@ We have prepared you three .txt files for the patient input. You may want to use
 <li>Non-consecutive number represents <i>Single</i> while 2 consecutive numbers represent <i>Couple</i>.</li>
 <li>You don't need to fully understand how to fetch the data patients and classify them into Single type quarantine and Couple type quarantine as it has been done by a helper function</li>
 
-```c++
-import foobar
-
-# returns 'words'
-foobar.pluralize('word')
-
-# returns 'geese'
-foobar.pluralize('goose')
-
-# returns 'phenomenon'
-foobar.singularize('phenomena')
-```
-
 ## Data Structure
 The following data data structures are defined in <code class=" language-text">lab7.h</code>.
 ```c++
